@@ -2,7 +2,7 @@ import api from '@/utils/axios.config';
 import type { LoginDTO, AuthResponse, MeResponse } from '../types/auth';
 
 export const login = (creds: LoginDTO) =>
-  api.post<AuthResponse>('/login', creds).then(r => r.data);
+  api.post<AuthResponse>('/auth/login', creds).then(r => r.data);
 
 export const logout = async (): Promise<void> => {
   await api.post('/logout');
