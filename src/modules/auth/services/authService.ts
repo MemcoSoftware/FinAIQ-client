@@ -1,4 +1,4 @@
-import api from '@/utils/axios.config';
+import api from '@/utils/config/axios.config';
 import type { LoginDTO, AuthResponse, MeResponse } from '../types/auth';
 
 export const login = (creds: LoginDTO) =>

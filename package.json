@@ -24,6 +24,7 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.56.4",
+    "react-toastify": "^11.0.5",
     "socket.io-client": "^4.8.1",
     "zod": "^3.25.28"
   },
@@ -34,6 +35,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/react-toastify": "^4.0.2",
     "eslint": "^9",
     "eslint-config-next": "15.1.8",
     "eslint-plugin-simple-import-sort": "^12.1.1",

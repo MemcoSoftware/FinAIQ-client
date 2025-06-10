@@ -5,9 +5,9 @@ import React, { useState } from 'react';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import EmailIcon from '@mui/icons-material/Email';
-import FacebookIcon from '@mui/icons-material/Facebook';
-import GoogleIcon from '@mui/icons-material/Google';
 import LockIcon from '@mui/icons-material/Lock';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import {
   Box,
   Button,
@@ -20,6 +20,7 @@ import {
   Typography,
   InputAdornment,
 } from '@mui/material';
+import SocialLoginComponent from './SocialLoginComponent';
 
 interface Props {
   onSubmit: (email: string, password: string) => void;
@@ -29,7 +30,8 @@ interface Props {
 export default function LoginForm({ onSubmit, error }: Props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
+  const [showPassword, setShowPassword] = useState(false);
+  const toggleShow = () => setShowPassword((v) => !v);
   // Datos de ejemplo para los puntos de paginación
   const paginationDots = [
     { id: 1, active: false },
@@ -67,11 +69,11 @@ export default function LoginForm({ onSubmit, error }: Props) {
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <Box
               component="img"
-              src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIwIiBoZWlnaHQ9IjAiLz4="
+              src="/img/logoFinAIQ.png"
               alt="FinAIQ Logo"
-              sx={{ width: 40, height: 40, mr: 1 }}
+              sx={{ width: 220, height: 84, mr: 1 }}
             />
-            <Typography
+            {/* <Typography
               variant="h5"
               component="div"
               sx={{
@@ -81,7 +83,7 @@ export default function LoginForm({ onSubmit, error }: Props) {
               }}
             >
               FinAIQ
-            </Typography>
+            </Typography> */}
           </Box>
         </Box>
 
@@ -90,7 +92,7 @@ export default function LoginForm({ onSubmit, error }: Props) {
           {/* Header */}
           <Box sx={{ mb: 6 }}>
             <Typography
-              variant="h3"
+              variant="h4"
               component="h1"
               sx={{
                 fontWeight: 600,
@@ -190,7 +192,7 @@ export default function LoginForm({ onSubmit, error }: Props) {
               </Typography>
               <TextField
                 fullWidth
-                type="password"
+                type={showPassword ? 'text' : 'password'}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 variant="outlined"
@@ -203,14 +205,34 @@ export default function LoginForm({ onSubmit, error }: Props) {
                   borderRadius: 2,
                 }}
                 InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">
+                  // El ojo a la izquierda, sin fondo
+                  startAdornment: (
+                    <InputAdornment position="start" sx={{ ml: 1 }}>
                       <IconButton
+                        onClick={toggleShow}
+                        edge="start"
+                        sx={{
+                          p: 0,                    // quita el padding extra
+                          color: '#67728A',        // mismo color del candado
+                        }}
+                        aria-label={showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'}
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                  // El candado a la derecha, con fondo verde
+                  endAdornment: (
+                    <InputAdornment position="end" sx={{ mr: 1 }}>
+                      <IconButton
+                        edge="end"
                         sx={{
                           bgcolor: '#70FF04',
                           borderRadius: 1,
                           '&:hover': { bgcolor: '#60DF00' },
                         }}
+                        disableRipple
+                        aria-hidden
                       >
                         <LockIcon />
                       </IconButton>
@@ -276,46 +298,8 @@ export default function LoginForm({ onSubmit, error }: Props) {
             <Divider sx={{ flexGrow: 1 }} />
           </Box>
 
-          {/* Botones Social Login */}
-          <Stack spacing={2}>
-            <Button
-              fullWidth
-              variant="outlined"
-              startIcon={<GoogleIcon />}
-              sx={{
-                borderColor: '#CBD5E0',
-                color: '#67728A',
-                py: 1.5,
-                borderRadius: '20px',
-                textTransform: 'none',
-                justifyContent: 'center',
-                fontFamily: "'Inter', sans-serif",
-                fontWeight: 500,
-                fontSize: '1.125rem',
-              }}
-            >
-              Continue with Google
-            </Button>
-
-            <Button
-              fullWidth
-              variant="outlined"
-              startIcon={<FacebookIcon />}
-              sx={{
-                borderColor: '#CBD5E0',
-                color: '#67728A',
-                py: 1.5,
-                borderRadius: '20px',
-                textTransform: 'none',
-                justifyContent: 'center',
-                fontFamily: "'Inter', sans-serif",
-                fontWeight: 500,
-                fontSize: '1.125rem',
-              }}
-            >
-              Continue with Facebook
-            </Button>
-          </Stack>
+          {/* Botones Social Login*/}
+          <SocialLoginComponent />
         </Box>
       </Paper>
 
